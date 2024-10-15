@@ -26,12 +26,9 @@ private:
 	// ƒƒ“ƒo•Ï”
 	Bar bar;
 	int currentTime;
-	int time;
 	int startTime;
 	int nowStage;
 
-	bool finishWaitTime;
-	float deltaTime;
 	std::string Stage;
 
 	std::vector<Ball> balls;

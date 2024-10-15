@@ -7,7 +7,7 @@ public:
 	Ball();
 	void Draw();
 	void Update();
-	bool CheckCollision(int barX, int barY, int width, int height);
+	bool CheckCollision(float barX, float barY, float width, float height);
 	bool CollisionToEdge();
 	bool CheckCollisionBrocks(int X, int Y, int width, int height);
 	void Reset(int number);

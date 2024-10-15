@@ -7,20 +7,18 @@ GameManager::GameManager() {
     startTime = GetNowCount();
     nowStage = 1;
     currentTime = 0;
-    finishWaitTime = false;
     gameEnd = false;
     backTitle = false;
     Stage = "Stage" + std::to_string(nowStage);
+    balls.reserve(2);
+    
 }
 
 void GameManager::InitializeGame(int stageNumber) {
-    brocks.clear();
     gameState = Playing;
-    finishWaitTime = false;
     nowStage = stageNumber;
     startTime = GetNowCount();
     scoreManager.bonusScore = 0;
-
     StageCreate(nowStage);
 
     // ステージ1の時はボールをリセット
@@ -46,10 +44,13 @@ void GameManager::Run() {
     nowStage = 1;
     backTitle = false;
     gameEnd = false;
-    RenderStage(Stage);
-    finishWaitTime = true;
+    
+    auto start = GetNowCount();  // 計測開始
     InitializeGame(nowStage);
+    auto end = GetNowCount();
     soundManager.PlaySoundBgm(nowStage);
+    RenderStage(Stage);
+    
     // メインループ
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !gameEnd && !backTitle) {
         if (gameState == Playing) {
@@ -68,7 +69,6 @@ void GameManager::Run() {
 
 void GameManager::Update() {
     currentTime = GetNowCount() - startTime;
-   
         bar.Update();
         for (int i = 0; i < balls.size(); i++) {
             if (balls[i].CollisionToEdge()) {
@@ -110,7 +110,7 @@ void GameManager::RenderStage(const std::string& stageName) {
 
     // ステージ表示の待機処理
     while (elapsedTime / 1000 < waitTime) {
-        Sleep(10);
+        Sleep(1);
         elapsedTime = GetNowCount() - nowTime;
 
         if (elapsedTime / 1000 >= 5 && stageName == "Congratulation!") {
@@ -145,6 +145,7 @@ bool GameManager::RenderFinalScore(){
 
 void GameManager::StageCreate(int stageNumber) {
     brocks.clear();
+    brocks.reserve(46);
     switch (stageNumber) {
     case 1:
         CreateStageLayout();
@@ -161,8 +162,8 @@ void GameManager::StageCreate(int stageNumber) {
 }
 
 void GameManager::CreateStageLayout() {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 4; j++) {
+    for (float i = 0; i < 8; i++) {
+        for (float j = 0; j < 4; j++) {
             brocks.push_back(Brocks(320 + 80 * i, 100 + 20 * j));
         }
     }
@@ -242,10 +243,10 @@ void GameManager::RenderCongratulation() {
 }
 
 void GameManager::CreateMShapedStage() {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 4; j++) {
-            int x = 320 + 80 * i;
-            int y = 100 + 40 * j;
+    for (float i = 0; i < 8; i++) {
+        for (float j = 0; j < 4; j++) {
+            float x = 320 + 80 * i;
+            float y = 100 + 40 * j;
 
             if (i == 0 || i == 7) {
                 y += 80;
@@ -259,10 +260,10 @@ void GameManager::CreateMShapedStage() {
 }
 
 void GameManager::CreateInvertedMShapedStage() {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 4; j++) {
-            int x = 320 + 80 * i;
-            int y = 100 + 40 * j;
+    for (float i = 0; i < 8; i++) {
+        for (float j = 0; j < 4; j++) {
+            float x = 320 + 80 * i;
+            float y = 100 + 40 * j;
 
             if (i == 3 || i == 4) {
                 y += 80;

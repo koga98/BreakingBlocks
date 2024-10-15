@@ -3,12 +3,9 @@
 
 class Brocks {
 public:
-	Brocks(int x, int y);
+	Brocks(float x, float y);
 	void Draw();
 	void Destroy();
-	void Update();
-	int positionX, positionY;
+	float positionX, positionY;
 	bool isBumped;
-private:
-	Ball ball;
 };

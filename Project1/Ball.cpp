@@ -64,7 +64,7 @@ bool Ball::CollisionToEdge() {
 	return false;
 }
 
-bool Ball::CheckCollision(int barX, int barY, int width, int height) {
+bool Ball::CheckCollision(float barX, float barY, float width, float height) {
 	if (GetNowCount() - lastCollisionTime < 100) return false;
 
 	bool CollisionX = barX <= x + radius && x - radius <= barX + width;

@@ -7,9 +7,10 @@ public:
 	void Update();
 	void Draw();
 	void Reset(int newStage);
-	int positionX, positionY;
-	int width, height;
-	int speedX1, speedX2;
+	float positionX, positionY;
+	int lastTime;
+	float width, height;
+	float speedX1, speedX2;
 private:
 	
 };
