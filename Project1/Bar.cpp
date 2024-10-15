@@ -12,13 +12,13 @@ void Bar::Reset(int newStage) {
 	lastTime = 0;
 	switch (newStage) {
 	case 1:
-		width = 150; height = 30; speedX1 = 300; speedX2 = -300;
+		width = 150; height = 30; speedX1 = 330; speedX2 = -330;
 		break;
 	case 2:
-		width = 100; height = 20; speedX1 = 400; speedX2 = -200;
+		width = 100; height = 20; speedX1 = 400; speedX2 = -210;
 		break;
 	case 3:
-		width = 180; height = 20; speedX1 = 500; speedX2 = -500;
+		width = 180; height = 20; speedX1 = 530; speedX2 = -530;
 		break;
 	default:
 		break;

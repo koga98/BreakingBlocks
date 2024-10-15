@@ -21,7 +21,7 @@ UIManager::UIManager() {
 // ゲームオーバー画面の描画
 void UIManager::RenderGameOverUI() {
 	DrawStringToHandle(300, 250, "GAME OVER", GetColor(255, 0, 0), fontHandle);
-	DrawStringToHandle(300, 300, "SPACEで今のステージをリトライ", GetColor(255, 255, 255), fontHandle);
+	DrawStringToHandle(300, 300, "SPACEで今のステージをリトライ", GetColor(255, 255, 0), fontHandle);
 }
 
 // ゲームクリア画面の描画
