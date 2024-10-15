@@ -2,31 +2,44 @@
 #include "DxLib.h"
 
 Ball::Ball() {
+	lastTime = 0;
 	Reset(0);
 }
 
 void Ball::Reset(int number) {
+	lastTime = 0;
 	if (number == 0) {
 		x = lastX = 640;
 		y = lastY = 360;
-		speedX = 2.0f;
-		speedY = -3.0f;
+		speedX = 300.0f;
+		speedY = 400.0f;
+		constSpeedX = 300.0f;
+		constSpeedY = 400.0f;
+		changedSpeedXAbs = 300.0f;
 	}
 	else if (number == 1) {
 		x = lastX = 600;
 		y = lastY = 330;
-		speedX = 1.0f;
-		speedY = 2.0f;
+		speedX = 150.0f;
+		speedY = 200.0f;
+		constSpeedX = 150.0f;
+		constSpeedY = 200.0f;
+		changedSpeedXAbs = 150.0f;
 	}
 	radius = 10.0f;
 	lastCollisionTime = 0;
 }
 
 void Ball::Update() {
+	if (lastTime == 0)
+		lastTime = GetNowCount();
+	int currentTime = GetNowCount();  // 現在の時間を取得
+	float deltaTime = (currentTime - lastTime) / 1000.0f;  // 前のフレームとの時間差を秒単位で計算
+	lastTime = currentTime;
 	lastX = x;
 	lastY = y;
-	x += speedX;
-	y += speedY;
+	x += speedX * deltaTime;
+	y += speedY * deltaTime;
 }
 
 void Ball::Draw() {
@@ -34,12 +47,19 @@ void Ball::Draw() {
 }
 
 bool Ball::CollisionToEdge() {
-	if (x + radius >= WIN_MAX_X || x - radius <= 0) {
-		speedX *= -1;
+	if (x + radius >= WIN_MAX_X ) {
+		speedX = -1 * changedSpeedXAbs;
 	}
-	if (y + radius <= 0 || y >= WIN_MAX_Y) {
-		speedY *= -1;
+	else if (x - radius <= 0) {
+		speedX = changedSpeedXAbs;
+	}
+	
+	if (y >= WIN_MAX_Y) {
+		speedY = -1 * constSpeedY;
 		return y >= WIN_MAX_Y;
+	}
+	else if (y - radius <= 0) {
+		speedY = constSpeedY;
 	}
 	return false;
 }
@@ -52,8 +72,9 @@ bool Ball::CheckCollision(int barX, int barY, int width, int height) {
 
 	if (CollisionX && CollisionY) {
 		float hitPosition = (x - barX) / static_cast<float>(width);
-		speedX = 2.0f * (hitPosition - 0.5f);
-		speedY *= -1;
+		speedX = constSpeedX * (2.0f * (hitPosition - 0.5f));
+		changedSpeedXAbs = std::abs(speedX);
+		speedY = -1 * constSpeedY;
 		lastCollisionTime = GetNowCount();
 		return true;
 	}

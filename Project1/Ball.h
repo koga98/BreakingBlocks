@@ -14,9 +14,13 @@ public:
 private:
 	SoundManager soundManager;
 	int lastCollisionTime;
+	int lastTime;
+	float deltaTime;
 	float x, y;
 	float radius;
 	float speedX, speedY;
+	float changedSpeedXAbs;
+	float constSpeedX, constSpeedY;
 	float lastX, lastY;
 	
 };

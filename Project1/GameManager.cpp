@@ -7,6 +7,7 @@ GameManager::GameManager() {
     startTime = GetNowCount();
     nowStage = 1;
     currentTime = 0;
+    finishWaitTime = false;
     gameEnd = false;
     backTitle = false;
     Stage = "Stage" + std::to_string(nowStage);
@@ -15,6 +16,7 @@ GameManager::GameManager() {
 void GameManager::InitializeGame(int stageNumber) {
     brocks.clear();
     gameState = Playing;
+    finishWaitTime = false;
     nowStage = stageNumber;
     startTime = GetNowCount();
     scoreManager.bonusScore = 0;
@@ -45,6 +47,7 @@ void GameManager::Run() {
     backTitle = false;
     gameEnd = false;
     RenderStage(Stage);
+    finishWaitTime = true;
     InitializeGame(nowStage);
     soundManager.PlaySoundBgm(nowStage);
     // ƒƒCƒ“ƒ‹[ƒv
@@ -65,15 +68,15 @@ void GameManager::Run() {
 
 void GameManager::Update() {
     currentTime = GetNowCount() - startTime;
-    bar.Update();
-
-    for (int i = 0; i < balls.size(); i++) {
-        if (balls[i].CollisionToEdge()) {
-            gameState = GameOver;
-            soundManager.PlayFailedSoundBgm();
+   
+        bar.Update();
+        for (int i = 0; i < balls.size(); i++) {
+            if (balls[i].CollisionToEdge()) {
+                gameState = GameOver;
+                soundManager.PlayFailedSoundBgm();
+            }
+            balls[i].Update();
         }
-        balls[i].Update();
-    }
 }
 
 void GameManager::Render() {
@@ -114,12 +117,12 @@ void GameManager::RenderStage(const std::string& stageName) {
             if (RenderFinalScore())
                 break;
         }
+        
     }
 
     if (stageName == "Congratulation!") {
         HandleCongratulation();
     }
-
     ClearDrawScreen();
 }
 
