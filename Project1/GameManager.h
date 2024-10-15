@@ -53,5 +53,4 @@ private:
 	void Render();
 	void CheckCollisions();
 	bool RenderFinalScore();
-	void RestartGame();
 };

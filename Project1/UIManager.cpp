@@ -83,13 +83,14 @@ void UIManager::RenderOperateWay() {
 	DrawString(400, 100, "A, Dキーでバーを左右に移動", GetColor(255, 255, 255));
 	DrawString(400, 150, "ボールがバー中央で反射すると直進", GetColor(255, 255, 255));
 	DrawString(400, 200, "右側で反射すると右に、左側なら左に", GetColor(255, 255, 255));
+	DrawString(400, 300, "ゲームを中断する場合はエスケープボタンを押下", GetColor(255, 255, 255));
 
-	DrawString(540, 300, "ルール", GetColor(255, 255, 255));
-	DrawString(400, 350, "ブロックを壊すごとにスコア +1", GetColor(255, 255, 255));
-	DrawString(400, 400, "バーに当たらなければスコア加算量も増加", GetColor(255, 255, 255));
-	DrawString(400, 450, "ボールが画面下に触れるとゲームオーバー", GetColor(255, 255, 255));
-	DrawString(400, 500, "スペースでリトライ/次のステージへ", GetColor(255, 255, 255));
-	DrawString(400, 550, "全3ステージ", GetColor(255, 255, 255));
+	DrawString(540, 400, "ルール", GetColor(255, 255, 255));
+	DrawString(400, 450, "ブロックを壊すごとにスコア +1", GetColor(255, 255, 255));
+	DrawString(400, 500, "バーに当たらなければスコア加算量も増加", GetColor(255, 255, 255));
+	DrawString(400, 550, "ボールが画面下に触れるとゲームオーバー", GetColor(255, 255, 255));
+	DrawString(400, 600, "スペースでリトライ/次のステージへ", GetColor(255, 255, 255));
+	DrawString(400, 650, "全3ステージ", GetColor(255, 255, 255));
 
 	// カーソルとボタン描画
 	DrawBox(cursorX, cursorY, cursorX + width, cursorY + height, GetColor(255, 255, 255), FALSE);
