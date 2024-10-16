@@ -23,7 +23,7 @@ Title::Title() {
 void Title::Run() {
     endTitleScene = false;
     sound.PlayTitleSound();  
-    while (!endTitleScene) {
+    while (!endTitleScene ) {
         PickingMenu();  // メニュー選択を実行
         if (endGame) {  // ゲームが終了する場合はループを抜ける
             break;
@@ -34,7 +34,7 @@ void Title::Run() {
 void Title::PickingMenu() {
     isPicking = true;
 
-    while (isPicking) {
+    while (isPicking && ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0) {
         ClearDrawScreen();
         int currentTime = GetNowCount();
 
@@ -62,6 +62,12 @@ void Title::PickingMenu() {
         }
 
         ScreenFlip();  // 描画内容を画面に反映
+    }
+
+    if (ProcessMessage() != 0 || CheckHitKey(KEY_INPUT_ESCAPE) != 0) {
+        endGame = true;
+        endTitleScene = true;
+        return;
     }
 
     if (cursorIndex == 0) {
