@@ -10,7 +10,6 @@ GameManager::GameManager() {
     gameEnd = false;
     backTitle = false;
     Stage = "Stage" + std::to_string(nowStage);
-    balls.reserve(2);
     
 }
 
@@ -145,7 +144,7 @@ bool GameManager::RenderFinalScore(){
 
 void GameManager::StageCreate(int stageNumber) {
     brocks.clear();
-    brocks.reserve(46);
+    brocks.shrink_to_fit();  // ƒƒ‚ƒŠ‚Ì‰ğ•ú‚ğ‘£‚·
     switch (stageNumber) {
     case 1:
         CreateStageLayout();
@@ -171,7 +170,7 @@ void GameManager::CreateStageLayout() {
 
 void GameManager::HandleCongratulation() {
     dataSave.SaveScore(scoreManager.totalScore);
-    soundManager.StopSoundBgm();
+    soundManager.StopSoundBgm(nowStage);
     if (!backTitle && !gameEnd)
         backTitle = true;
 }
@@ -202,7 +201,7 @@ void GameManager::CheckCollisions() {
 }
 
 void GameManager::HandleGameOver() {
-    soundManager.StopSoundBgm();
+    soundManager.StopSoundBgm(nowStage);
     uIManager.RenderGameOverUI();
     ScreenFlip();
 
@@ -232,7 +231,7 @@ void GameManager::HandleGameClear() {
 void GameManager::RenderCongratulation() {
     Stage = "Stage" + std::to_string(nowStage + 1);
     scoreManager.SaveClearScore();
-    soundManager.StopSoundBgm();
+    soundManager.StopSoundBgm(nowStage);
     soundManager.PlaySoundBgm(nowStage + 1);
 
     if (Stage == "Stage4") {

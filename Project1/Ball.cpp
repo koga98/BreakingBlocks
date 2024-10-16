@@ -81,7 +81,7 @@ bool Ball::CheckCollision(float barX, float barY, float width, float height) {
 	return false;
 }
 
-bool Ball::CheckCollisionBrocks(int X, int Y, int width, int height) {
+bool Ball::CheckCollisionBrocks(float X, float Y, int width, int height) {
 	if (GetNowCount() - lastCollisionTime < 1) return false;
 
 	bool CollisionX = X <= x + radius && x - radius <= X + width;

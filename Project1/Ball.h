@@ -9,7 +9,7 @@ public:
 	void Update();
 	bool CheckCollision(float barX, float barY, float width, float height);
 	bool CollisionToEdge();
-	bool CheckCollisionBrocks(int X, int Y, int width, int height);
+	bool CheckCollisionBrocks(float X, float Y, int width, int height);
 	void Reset(int number);
 private:
 	SoundManager soundManager;

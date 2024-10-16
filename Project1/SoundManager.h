@@ -12,11 +12,14 @@ public:
 	std::unordered_map<int, int> bgmHandles;
 	SoundManager();
 	int SESound;
-	int BgmSound;
+	int BgmSound1;
+	int BgmSound2;
+	int BgmSound3;
+	int BgmSound4;
 	int failedBgm;
 	int TitleBgm;
 	void PlaySoundBgm(int stageNumber);
-	void StopSoundBgm();
+	void StopSoundBgm(int stageNumber);
 	void PlayFailedSoundBgm();
 	void PlayTitleSound();
 	void StopTitleSound();
